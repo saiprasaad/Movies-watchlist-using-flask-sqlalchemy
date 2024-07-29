@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block body %}
+<style>
+    .col-4 {
+        display: flex;
+        align-items: stretch;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .card-body ul {
+        flex-grow: 1;
+    }
+
+    .btn {
+        margin-top: auto;
+    }
+</style>
+<div class="container d-flex flex-column">
+    <p class="display-4 text-center">Movies List</p>
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card">
+                <img src={{movie.poster}} class="card-img-top">
+                <div class="card-body">
+                    {% if movie.imdbID in watchlist %}
+                        <span class="badge bg-success">Already in watchlist</span>
+                    {% endif %}
+                    <h4 class="card-title">{{movie.title}} </h4>
+                    <p class="fs-5">Year: {{movie.year}}</p>
+                    {% if movie.imdbID not in watchlist %}
+                    <form action="{{url_for('movies.add_to_watchlist', imdbID=movie.imdbID)}}" method="POST">
+                        <button type="submit" class="btn btn-primary mt-auto" data-mdb-ripple-init>Add to watchlist</button>
+                    </form>
+                    {% endif %}
+                    {% if movie.imdbID in watchlist %}
+                    <form action="{{url_for('movies.remove_from_watchlist', imdbID=movie.imdbID)}}" method="POST">
+                        <button type="submit" class="btn btn-danger mt-auto" data-mdb-ripple-init>Remove from watchlist</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

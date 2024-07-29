@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block body %}
+<style>
+    .col-4 {
+        display: flex;
+        align-items: stretch;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .card-body ul {
+        flex-grow: 1;
+    }
+
+    .btn {
+        margin-top: auto;
+    }
+</style>
+<div class="container d-flex flex-column mt-5">
+    <p class="display-4 text-center">My Watchlists</p>
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card">
+                <img src={{movie.poster}} class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title">{{movie.title}} </h4>
+                    <p class="fs-5">Year: {{movie.year}}</p>
+                    <form action="{{url_for('movies.remove_from_watchlist', imdbID=movie.imdbID)}}" method="POST">
+                        <button type="submit" class="btn btn-danger mt-auto" data-mdb-ripple-init>Remove from watchlist</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

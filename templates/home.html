@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <h1 class="text-body-emphasis">Movies Watchlist</h1>
+        <p class="lead">
+        <form action="{{url_for('movies.search_results')}}" method="POST">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Enter search text here...." name="search">
+                <button type="submit" class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+            </div>
+        </form>
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block body %}
+<div class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <p class="display-4">Register Form</p>
+    <form method="POST" action="#">
+        <div class="mb-3 mt-3">
+            <label class="form-label h4">Username</label>
+            <input class="form-control" placeholder="Enter your username" name = "username" type="text"/>
+        </div>
+        <div class="mb-3 mt-3">
+            <label class="form-label h4">Password</label>
+            <input class="form-control" placeholder="Enter your password" name = "password" type="password"/>
+        </div>
+        <div class="mb-3 mt-3 text-center">
+            <button type="submit" class="btn btn-success fs-4">Register</button>
+            <a href="{{url_for('movies.login')}}" class="nav-link mt-2">Existing user? Login here</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
